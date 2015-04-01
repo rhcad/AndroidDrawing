@@ -22,7 +22,7 @@
 
    - 定义 IViewHelper 对象，在 onCreate 中创建绘图视图。
 
-     ```
+     ```java
     public class MainActivity extends Activity {
          private IViewHelper mHelper = ViewFactory.createHelper();
 
@@ -39,13 +39,137 @@
 
 5. 运行程序，动画画画吧。
 
+   ![step1](Screenshot/step1.png)
+
+## 练习2：添加绘图按钮
+
+1. 添加按钮布局和按钮图片。
+
+   在 res/drawable 中添加五个按钮图片，在 res/layout 中添加按钮布局 button_bar.xml：
+
+     ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <ImageButton
+            android:id="@+id/line_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line" />
+
+        <ImageButton
+            android:id="@+id/rect_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rect" />
+
+        <ImageButton
+            android:id="@+id/triangle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/triangle" />
+
+        <ImageButton
+            android:id="@+id/select_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/select" />
+
+        <ImageButton
+            android:id="@+id/erase_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/eraser" />
+
+    </LinearLayout>
+     ```
+
+   主界面布局 activity_main.xml：
+
+     ```xml
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/horzLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        tools:context="com.example.drawing1.MainActivity" >
+
+        <include
+            android:id="@+id/buttons_bar"
+            layout="@layout/buttons_bar" />
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </FrameLayout>
+
+    </LinearLayout>
+     ```
+   
+2. 添加按钮响应，激活相应绘图命令。
+
+     ```
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        .....
+        initButtons();
+    }
+
+    private void initButtons() {
+        findViewById(R.id.line_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("line");
+            }
+        });
+        findViewById(R.id.rect_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("rect");
+            }
+        });
+        findViewById(R.id.triangle_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("triangle");
+            }
+        });
+        findViewById(R.id.select_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("select");
+            }
+        });
+        findViewById(R.id.erase_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("erase");
+            }
+        });
+    }
+     ```
+
+3. 再次运行程序，点按钮可绘制多种图形。但选择图形出来几个空的按钮。
+
+   ![step2](Screenshot/step2.png)
+
+4. 添加上下文按钮资源、本地化串资源。从[预编译的TouchVG包][prebuilt]中，将 res/drawable-hdpi、res/drawable-mdpi、res/values 合并到程序中。其中 res/values/strings.xml 不能直接复制文件，需要合并文字内容。
+
+   ![step3](Screenshot/step3.png)
+
 ## 开发环境
 
 我使用的是开发环境是：
 
 1. Mac OS X 10.10
-2. ADT Bundle v23.0.2: adt-bundle-mac-x86_64-20140702
+2. ADT Bundle v23.0.2，官方下载被墙，可从[这][ADT]下载。
 
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip
 [cmdnames]: http://touchvg.github.io/pages/Commands.html
+[ADT]: http://tools.android-studio.org

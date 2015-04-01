@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 public class MainActivity extends Activity {
@@ -17,7 +19,40 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         mHelper.createGraphView(this, (ViewGroup) this.findViewById(R.id.container));
-        mHelper.setCommand("splines");
+        initButtons();
+    }
+
+    private void initButtons() {
+        findViewById(R.id.line_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("line");
+            }
+        });
+        findViewById(R.id.rect_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("rect");
+            }
+        });
+        findViewById(R.id.triangle_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("triangle");
+            }
+        });
+        findViewById(R.id.select_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("select");
+            }
+        });
+        findViewById(R.id.erase_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.setCommand("erase");
+            }
+        });
     }
 
     @Override
