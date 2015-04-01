@@ -1,0 +1,21 @@
+#OS junk files
+[Tt]humbs.db
+*.DS_Store
+*.bak*
+*~
+._*
+*.swp
+*.out
+*.tmp
+*.o
+*.d
+
+#Eclipse files
+.metadata
+bin
+gen
+obj
+gdb.setup
+gdbserver
+touchvg.jar
+libtouchvg.so
