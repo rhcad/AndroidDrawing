@@ -41,8 +41,10 @@
          }
      ```
    - 在 `createGraphView` 下一行的 `setCommand` 激活随手画命令。`splines` 是命令名，更多命令名见[在线文档][cmdnames]。
+   
+   - 将 `createGraphView` 换为 `createSurfaceView` 可基于 SurfaceView 创建绘图视图，适合大量图形或页面上有较多控件的情况。在普通 View 上绘图时占用主线程显示，刷新时可能引起页面其他视图被动刷新。在 SurfaceView 上可异步绘图，避免连锁刷新问题。
 
-5. 运行程序，动手画画吧。
+5. 运行程序，动手画图吧。
 
    ![step1](Screenshot/step1.png)
 
@@ -118,7 +120,7 @@
    
 2. 添加按钮响应，激活相应绘图命令。
 
-     ```
+     ```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         .....
@@ -173,8 +175,48 @@
 
 1. 在 AndroidManifest.xml 中增加 MOUNT_UNMOUNT_FILESYSTEMS 和 WRITE_EXTERNAL_STORAGE 权限，以便读写外部存储器。
 
-2. 在 MainActivity 中实现 onDestroy、onPause、onSaveInstanceState、onRestoreInstanceState，分别调用 IViewHelper 中相似名称的函数。
+2. 在 MainActivity 中实现 onDestroy、onPause、onSaveInstanceState、onRestoreInstanceState，分别调用 IViewHelper 中相似名称的函数。在创建绘图视图时传入 savedInstanceState，返回 Activity 时自动恢复图形：`mHelper.createGraphView(this, layout, savedInstanceState);`。
 
+## 练习4：增加线宽动态修改和更新功能
+
+选中一个图形，可动态（所见即所得）修改其线宽等属性。没有选中图形时设置的图形属性将应用到新画的图形上。
+
+1. 在 Activity 布局中增加一个滑块控件，ID为lineWidthBar，最大值为 20，即最大20像素宽。
+
+2. 在 MainActivity 的 onCreate 中设置滑动响应：
+
+     ```java
+    mLineWidthBar = (SeekBar) findViewById(R.id.lineWidthBar);
+    mLineWidthBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            mHelper.setStrokeWidth(progress);
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            mHelper.setContextEditing(true);
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            mHelper.setContextEditing(false);
+        }
+    });
+     ```
+
+    其中，调用 setContextEditing 是避免在拖动滑块过程中多次提交改动，产生多次Undo步骤（下面会实现Undo）。
+
+3. 为了在选中不同的图形后更新线宽滑块值，需要增加选择改变观察者：
+
+     ```java
+    mHelper.getGraphView().setOnSelectionChangedListener(new OnSelectionChangedListener() {
+        @Override
+        public void onSelectionChanged(IGraphView view) {
+            mLineWidthBar.setProgress(mHelper.getStrokeWidth());
+        }
+    });
+     ```
 
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip

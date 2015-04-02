@@ -1,5 +1,7 @@
 package com.example.drawing1;
 
+import rhcad.touchvg.IGraphView;
+import rhcad.touchvg.IGraphView.OnSelectionChangedListener;
 import rhcad.touchvg.IViewHelper;
 import rhcad.touchvg.ViewFactory;
 import android.app.Activity;
@@ -7,10 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnSelectionChangedListener {
     private IViewHelper mHelper = ViewFactory.createHelper();
-    protected static final String PATH = "mnt/sdcard/Drawing1/";
+    private static final String PATH = "mnt/sdcard/Drawing1/";
+    private SeekBar mLineWidthBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +58,30 @@ public class MainActivity extends Activity {
                 mHelper.setCommand("erase");
             }
         });
+
+        mLineWidthBar = (SeekBar) findViewById(R.id.lineWidthBar);
+        mLineWidthBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                mHelper.setStrokeWidth(progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                mHelper.setContextEditing(true);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                mHelper.setContextEditing(false);
+            }
+        });
+        mHelper.getGraphView().setOnSelectionChangedListener(this);
+    }
+
+    @Override
+    public void onSelectionChanged(IGraphView view) {
+        mLineWidthBar.setProgress(mHelper.getStrokeWidth());
     }
 
     @Override
