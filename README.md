@@ -1,6 +1,6 @@
 # AndroidDrawing
 
-培训用的样例，基于 [TouchVG][vgandroid] 构建矢量绘图应用。
+基于 [TouchVG][vgandroid] 构建矢量绘图应用样例。
 
 ## 目录
 
@@ -214,6 +214,7 @@
        }
    });
      ```
+
 练习6：增加Undo/Redo功能
 ----------------------
 
