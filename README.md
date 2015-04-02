@@ -68,28 +68,10 @@
             android:src="@drawable/line" />
 
         <ImageButton
-            android:id="@+id/rect_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/rect" />
-
-        <ImageButton
-            android:id="@+id/triangle_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/triangle" />
-
-        <ImageButton
             android:id="@+id/select_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/select" />
-
-        <ImageButton
-            android:id="@+id/erase_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/eraser" />
 
     </LinearLayout>
      ```
@@ -134,28 +116,10 @@
                 mHelper.setCommand("line");
             }
         });
-        findViewById(R.id.rect_btn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mHelper.setCommand("rect");
-            }
-        });
-        findViewById(R.id.triangle_btn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mHelper.setCommand("triangle");
-            }
-        });
         findViewById(R.id.select_btn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 mHelper.setCommand("select");
-            }
-        });
-        findViewById(R.id.erase_btn).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mHelper.setCommand("erase");
             }
         });
     }
@@ -192,12 +156,10 @@
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             mHelper.setStrokeWidth(progress);
         }
-
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
             mHelper.setContextEditing(true);
         }
-
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
             mHelper.setContextEditing(false);
@@ -209,14 +171,14 @@
 
 3. 为了在选中不同的图形后更新线宽滑块值，需要增加选择改变观察者：
 
-     ```java
-    mHelper.getGraphView().setOnSelectionChangedListener(new OnSelectionChangedListener() {
+    ```java
+   mHelper.getGraphView().setOnSelectionChangedListener(new OnSelectionChangedListener() {
         @Override
         public void onSelectionChanged(IGraphView view) {
             mLineWidthBar.setProgress(mHelper.getStrokeWidth());
         }
-    });
-     ```
+  });
+    ```
 
 ## 练习5：增加颜色选择框
 
