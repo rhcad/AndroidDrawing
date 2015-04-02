@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">Drawing1</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="colorpicker">选择颜色</string>
 
     <!-- 以下来自TouchVG -->
 

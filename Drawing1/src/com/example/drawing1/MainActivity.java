@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 
+import com.chiralcode.colorpicker.ColorPickerDialog;
+import com.chiralcode.colorpicker.ColorPickerDialog.OnColorSelectedListener;
+
 public class MainActivity extends Activity implements OnSelectionChangedListener {
     private IViewHelper mHelper = ViewFactory.createHelper();
     private static final String PATH = "mnt/sdcard/Drawing1/";
@@ -25,6 +28,7 @@ public class MainActivity extends Activity implements OnSelectionChangedListener
         final ViewGroup layout = (ViewGroup) this.findViewById(R.id.container);
         mHelper.createGraphView(this, layout, savedInstanceState);
         initButtons();
+        onSelectionChanged(mHelper.getGraphView());
     }
 
     private void initButtons() {
@@ -77,6 +81,18 @@ public class MainActivity extends Activity implements OnSelectionChangedListener
             }
         });
         mHelper.getGraphView().setOnSelectionChangedListener(this);
+
+        findViewById(R.id.colorpicker_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ColorPickerDialog(MainActivity.this, mHelper.getLineColor(), new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int color) {
+                        mHelper.setLineColor(color);
+                    }
+                }).show();
+            }
+        });
     }
 
     @Override

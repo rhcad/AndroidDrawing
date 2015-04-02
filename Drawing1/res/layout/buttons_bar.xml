@@ -39,4 +39,11 @@
         android:contentDescription="@string/erase"
         android:src="@drawable/eraser" />
 
+    <ImageButton
+        android:id="@+id/colorpicker_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/colorpicker"
+        android:src="@drawable/colorwheel" />
+
 </LinearLayout>

@@ -218,8 +218,30 @@
     });
      ```
 
+## 练习5：增加颜色选择框
+
+1. 在工程中导入[Android-Color-Picker][ColorPicker]库。这里就直接添加源码(com.chiralcode.colorpicker)了。
+
+2. 增加一个按钮，点击时显示颜色选择对话框：
+
+     ```java
+   findViewById(R.id.colorpicker_btn).setOnClickListener(new OnClickListener() {
+       @Override
+       public void onClick(View v) {
+           new ColorPickerDialog(MainActivity.this, mHelper.getLineColor(),
+               new OnColorSelectedListener() {
+                   @Override
+                   public void onColorSelected(int color) {
+                       mHelper.setLineColor(color);
+                   }
+           }).show();
+       }
+   });
+     ```
+
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip
 [vgproj]: https://github.com/rhcad/vgandroid/tree/develop/TouchVG
 [cmdnames]: http://touchvg.github.io/pages/Commands.html
 [ADT]: http://tools.android-studio.org
+[ColorPicker]: https://github.com/chiralcode/Android-Color-Picker
