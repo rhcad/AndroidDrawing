@@ -1,6 +1,7 @@
 package com.example.drawing1;
 
 import rhcad.touchvg.IGraphView;
+import rhcad.touchvg.IGraphView.OnContentChangedListener;
 import rhcad.touchvg.IGraphView.OnSelectionChangedListener;
 import rhcad.touchvg.IViewHelper;
 import rhcad.touchvg.ViewFactory;
@@ -28,7 +29,8 @@ public class MainActivity extends Activity implements OnSelectionChangedListener
         final ViewGroup layout = (ViewGroup) this.findViewById(R.id.container);
         mHelper.createGraphView(this, layout, savedInstanceState);
         initButtons();
-        onSelectionChanged(mHelper.getGraphView());
+        initUndo();
+        updateButtons();
     }
 
     private void initButtons() {
@@ -95,9 +97,37 @@ public class MainActivity extends Activity implements OnSelectionChangedListener
         });
     }
 
+    private void initUndo() {
+        findViewById(R.id.undo_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.undo();
+            }
+        });
+        findViewById(R.id.redo_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.redo();
+            }
+        });
+        mHelper.getGraphView().setOnContentChangedListener(new OnContentChangedListener() {
+            @Override
+            public void onContentChanged(IGraphView view) {
+                updateButtons();
+            }
+        });
+        mHelper.startUndoRecord(PATH + "undo");
+    }
+
+    private void updateButtons() {
+        findViewById(R.id.undo_btn).setEnabled(mHelper.canUndo());
+        findViewById(R.id.redo_btn).setEnabled(mHelper.canRedo());
+        mLineWidthBar.setProgress(mHelper.getStrokeWidth());
+    }
+
     @Override
     public void onSelectionChanged(IGraphView view) {
-        mLineWidthBar.setProgress(mHelper.getStrokeWidth());
+        updateButtons();
     }
 
     @Override

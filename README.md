@@ -2,6 +2,15 @@
 
 培训用的样例，基于 [TouchVG][vgandroid] 构建矢量绘图应用。
 
+## 目录
+
+- [超简单的涂鸦App](#练习1：超简单的涂鸦App)
+- [添加绘图按钮](#练习2：添加绘图按钮)
+- [增加自动保存和恢复功能](练习3：增加自动保存和恢复功能)
+- [增加线宽动态修改和更新功能](练习4：增加线宽动态修改和更新功能)
+- [增加颜色选择框](练习5：增加颜色选择框)
+- [增加Undo/Redo功能](练习6：增加Undo/Redo功能)
+
 ## 练习1：超简单的涂鸦App
 
 准备工作：安装 ADT Bundle 开发环境（我用的是v23，官方下载被墙，可从[这][ADT]下载）。
@@ -20,12 +29,12 @@
 
    - 下载[预编译的TouchVG包][prebuilt]，将 touchvg.jar 和 libtouchvg.so 复制到程序项目的 libs 下。
    
-   - 如需调试进入 TouchVG 或快速查看 IViewHelper 接口注释，则不能复制touchvg.jar，可将 [TouchVG项目][vgproj] 复制到上级目录并导入TouchVG工程，在程序项目的 project.properties 中加入引用：
+   - 如需调试进入 TouchVG 或快速查看 [IViewHelper][IViewHelper] 接口注释，则不能复制touchvg.jar，可将 [TouchVG项目][vgproj] 复制到上级目录并导入TouchVG工程，在程序项目的 project.properties 中加入引用：
    `android.library.reference.1=../TouchVG`
 
 4. 在 MainActivity.java 中创建绘图视图。
 
-   - 定义 IViewHelper 对象，在 onCreate 中创建绘图视图。
+   - 定义 [IViewHelper][IViewHelper] 对象，在 onCreate 中创建绘图视图。
 
      ```java
     public class MainActivity extends Activity {
@@ -169,7 +178,7 @@
 
     其中，调用 setContextEditing 是避免在拖动滑块过程中多次提交改动，产生多次Undo步骤（下面会实现Undo）。
 
-3. 为了在选中不同的图形后更新线宽滑块值，需要增加选择改变观察者：
+3. 为了在选中不同的图形后更新线宽滑块值，需要增加[选择改变观察者][IGraphView]：
 
     ```java
    mHelper.getGraphView().setOnSelectionChangedListener(new OnSelectionChangedListener() {
@@ -182,7 +191,7 @@
 
 ## 练习5：增加颜色选择框
 
-1. 在工程中导入[Android-Color-Picker][ColorPicker]库。这里就直接添加源码(com.chiralcode.colorpicker)了。
+1. 在工程中导入[Android-Color-Picker][ColorPicker]库。这里就直接添加源码(com.chiralcode.colorpicker)了。也可以换为其他颜色选取框项目，例如 [HoloColorPicker][HoloColorPicker]。
 
 2. 增加一个按钮，点击时显示颜色选择对话框：
 
@@ -200,10 +209,45 @@
        }
    });
      ```
+## 练习6：增加Undo/Redo功能
+
+1. 在页面布局中增加两个按钮，ID为 undo_btn 和 redo_btn。
+2. 在按钮点击响应中执行Undo/Redo操作，并准备录制Undo信息：
+
+     ```java
+     findViewById(R.id.undo_btn).setOnClickListener(new OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             mHelper.undo();
+         }
+     });
+     findViewById(R.id.redo_btn).setOnClickListener(new OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             mHelper.redo();
+         }
+     });
+     mHelper.startUndoRecord(PATH + "undo");
+     ```
+
+3. 增加图形内容改变的观察者，在图形改变时更新按钮状态：
+
+     ```java
+   mHelper.getGraphView().setOnContentChangedListener(new OnContentChangedListener() {
+       @Override
+       public void onContentChanged(IGraphView view) {
+           findViewById(R.id.undo_btn).setEnabled(mHelper.canUndo());
+           findViewById(R.id.redo_btn).setEnabled(mHelper.canRedo());
+       }
+   });
+     ```
 
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip
 [vgproj]: https://github.com/rhcad/vgandroid/tree/develop/TouchVG
+[IViewHelper]: https://github.com/rhcad/vgandroid/blob/develop/TouchVG/src/rhcad/touchvg/IViewHelper.java
+[IGraphView]: https://github.com/rhcad/vgandroid/blob/develop/TouchVG/src/rhcad/touchvg/IGraphView.java
 [cmdnames]: http://touchvg.github.io/pages/Commands.html
 [ADT]: http://tools.android-studio.org
 [ColorPicker]: https://github.com/chiralcode/Android-Color-Picker
+[HoloColorPicker]: https://github.com/LarsWerkman/HoloColorPicker

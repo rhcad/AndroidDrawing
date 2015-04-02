@@ -10,6 +10,8 @@
     <string name="shape1_deleted">已删除一个图形</string>
     <string name="shape_n_deleted">已删除 %d 个图形</string>
     <string name="invalid_gridcell">单元格太小或太大</string>
+    <string name="undo">撤销</string>
+    <string name="redo">恢复</string>
     <string name="undo_ok">已撤销</string>
     <string name="redo_ok">已恢复</string>
     <string name="nodept">顶点</string>
