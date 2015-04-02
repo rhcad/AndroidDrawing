@@ -162,6 +162,12 @@
 
    ![step3](Screenshot/step3.png)
 
+## 练习3：增加自动保存和恢复功能
+
+1. 在 AndroidManifest.xml 中增加 MOUNT_UNMOUNT_FILESYSTEMS 和 WRITE_EXTERNAL_STORAGE 权限，以便读写外部存储器。
+
+2. 在 MainActivity 中实现 onDestroy、onPause、onSaveInstanceState、onRestoreInstanceState。
+
 ## 开发环境
 
 我使用的是开发环境是：

@@ -4,21 +4,21 @@ import rhcad.touchvg.IViewHelper;
 import rhcad.touchvg.ViewFactory;
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 public class MainActivity extends Activity {
     private IViewHelper mHelper = ViewFactory.createHelper();
+    protected static final String PATH = "mnt/sdcard/Drawing1/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mHelper.createGraphView(this, (ViewGroup) this.findViewById(R.id.container));
+        final ViewGroup layout = (ViewGroup) this.findViewById(R.id.container);
+        mHelper.createGraphView(this, layout, savedInstanceState);
         initButtons();
     }
 
@@ -56,21 +56,33 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    public void onDestroy() {
+        mHelper.onDestroy();
+        super.onDestroy();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    public void onPause() {
+        mHelper.onPause();
+        super.onPause();
     }
+
+    @Override
+    public void onResume() {
+        mHelper.onResume();
+        super.onResume();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mHelper.onSaveInstanceState(outState, PATH);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        mHelper.onRestoreInstanceState(savedInstanceState);
+    }
+
 }
