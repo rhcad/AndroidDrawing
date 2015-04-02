@@ -4,6 +4,8 @@
 
 ## 练习1：超简单的涂鸦App
 
+准备工作：安装 ADT Bundle 开发环境（我用的是v23，官方下载被墙，可从[这][ADT]下载）。
+
 1. 新建 Android 程序项目。
 
    - SDK 最小版本选 API 16 以上（避免自动创建的 appcompat_v7 项目出现资源缺失错误），完成后可改回低版本（使用 TouchVG 要求最低 API 12）。
@@ -16,7 +18,10 @@
 
 3. 添加 TouchVG 引用。
 
-   - 下载[预编译的TouchVG包][prebuilt]，将 touchvg.jar 和 libtouchvg.so 复制到 libs 下。
+   - 下载[预编译的TouchVG包][prebuilt]，将 touchvg.jar 和 libtouchvg.so 复制到程序项目的 libs 下。
+   
+   - 如需调试进入 TouchVG 或快速查看 IViewHelper 接口注释，则不能复制touchvg.jar，可将 [TouchVG项目][vgproj] 复制到上级目录并导入TouchVG工程，在程序项目的 project.properties 中加入引用：
+   `android.library.reference.1=../TouchVG`
 
 4. 在 MainActivity.java 中创建绘图视图。
 
@@ -164,18 +169,15 @@
 
 ## 练习3：增加自动保存和恢复功能
 
+目前重启程序或按Home键，返回程序后所绘图形会丢失。可以增加自动保存和恢复功能。
+
 1. 在 AndroidManifest.xml 中增加 MOUNT_UNMOUNT_FILESYSTEMS 和 WRITE_EXTERNAL_STORAGE 权限，以便读写外部存储器。
 
-2. 在 MainActivity 中实现 onDestroy、onPause、onSaveInstanceState、onRestoreInstanceState。
+2. 在 MainActivity 中实现 onDestroy、onPause、onSaveInstanceState、onRestoreInstanceState，分别调用 IViewHelper 中相似名称的函数。
 
-## 开发环境
-
-我使用的是开发环境是：
-
-1. Mac OS X 10.10
-2. ADT Bundle v23.0.2，官方下载被墙，可从[这][ADT]下载。
 
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip
+[vgproj]: https://github.com/rhcad/vgandroid/tree/develop/TouchVG
 [cmdnames]: http://touchvg.github.io/pages/Commands.html
 [ADT]: http://tools.android-studio.org

@@ -19,3 +19,4 @@ gdb.setup
 gdbserver
 touchvg.jar
 libtouchvg.so
+TouchVG
