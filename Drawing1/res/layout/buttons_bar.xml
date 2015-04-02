@@ -8,30 +8,35 @@
         android:id="@+id/line_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/line"
         android:src="@drawable/line" />
 
     <ImageButton
         android:id="@+id/rect_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/rect"
         android:src="@drawable/rect" />
 
     <ImageButton
         android:id="@+id/triangle_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/triangle"
         android:src="@drawable/triangle" />
 
     <ImageButton
         android:id="@+id/select_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/select"
         android:src="@drawable/select" />
 
     <ImageButton
         android:id="@+id/erase_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/erase"
         android:src="@drawable/eraser" />
 
 </LinearLayout>

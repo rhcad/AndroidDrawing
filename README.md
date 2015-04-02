@@ -1,6 +1,6 @@
 # AndroidDrawing
 
-基于 [TouchVG][vgandroid] 构建矢量绘图应用。
+培训用的样例，基于 [TouchVG][vgandroid] 构建矢量绘图应用。
 
 ## 练习1：超简单的涂鸦App
 
@@ -11,7 +11,7 @@
 
 2. 在主页面布局中添加一个 FrameLayout，将用作绘图区的容器。
 
-   - 指定 ID 为 `container`，下面就可通过 `findViewById(R.id.drawframe)`找到此布局。
+   - 指定 ID 为 `container`，下面就可通过 `findViewById(R.id.container)`找到此布局。
    - 使用 FrameLayout 而不是其他布局类型做绘图视图容器，是避免触摸绘图引起其他相邻视图联锁刷新。
 
 3. 添加 TouchVG 引用。
@@ -37,7 +37,7 @@
      ```
    - 在 `createGraphView` 下一行的 `setCommand` 激活随手画命令。`splines` 是命令名，更多命令名见[在线文档][cmdnames]。
 
-5. 运行程序，动画画画吧。
+5. 运行程序，动手画画吧。
 
    ![step1](Screenshot/step1.png)
 
