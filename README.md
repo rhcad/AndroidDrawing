@@ -30,8 +30,8 @@
 
    - 下载[预编译的TouchVG包][prebuilt]，将 touchvg.jar 和 libtouchvg.so 复制到程序项目的 libs 下。
    
-   - 如需调试进入 TouchVG 或快速查看 [IViewHelper][IViewHelper] 接口注释，则不能复制touchvg.jar，可将 [TouchVG项目][vgproj] 复制到上级目录并导入TouchVG工程，在程序项目的 project.properties 中加入引用：
-   `android.library.reference.1=../TouchVG`
+   - 如需调试进入 TouchVG 或快速查看 [IViewHelper][IViewHelper] 接口注释，则不能复制touchvg.jar，可将 [TouchVG项目][vgandroid] 下载到上级目录并导入TouchVG工程，在程序项目的 project.properties 中加入引用：
+   `android.library.reference.1=../../vgandroid/TouchVG`
 
 4. 在 MainActivity.java 中创建绘图视图。
 
@@ -251,7 +251,6 @@
 
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip
-[vgproj]: https://github.com/rhcad/vgandroid/tree/develop/TouchVG
 [IViewHelper]: https://github.com/rhcad/vgandroid/blob/develop/TouchVG/src/rhcad/touchvg/IViewHelper.java
 [IGraphView]: https://github.com/rhcad/vgandroid/blob/develop/TouchVG/src/rhcad/touchvg/IGraphView.java
 [cmdnames]: http://touchvg.github.io/pages/Commands.html
