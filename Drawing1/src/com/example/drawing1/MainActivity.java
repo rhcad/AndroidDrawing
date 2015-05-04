@@ -28,7 +28,7 @@ public class MainActivity extends Activity implements OnSelectionChangedListener
 
         final ViewGroup layout = (ViewGroup) this.findViewById(R.id.container);
         mHelper.createSurfaceView(this, layout, savedInstanceState);
-        mHelper.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.background));
+        mHelper.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.background_repeat));
 
         initButtons();
         initUndo();
