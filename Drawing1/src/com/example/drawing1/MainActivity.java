@@ -66,6 +66,12 @@ public class MainActivity extends Activity implements OnSelectionChangedListener
                 mHelper.setCommand("erase");
             }
         });
+        findViewById(R.id.snapshot_btn).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHelper.savePNG(mHelper.extentSnapshot(4, true), PATH + "snapshot.png");
+            }
+        });
 
         mLineWidthBar = (SeekBar) findViewById(R.id.lineWidthBar);
         mLineWidthBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {

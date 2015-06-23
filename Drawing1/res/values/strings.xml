@@ -3,6 +3,7 @@
 
     <string name="app_name">Drawing1</string>
     <string name="colorpicker">选择颜色</string>
+    <string name="snapshot">截屏</string>
 
     <!-- 以下来自TouchVG -->
 

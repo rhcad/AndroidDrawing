@@ -10,6 +10,7 @@
 - [4.增加线宽动态修改和更新功能](#练习4增加线宽动态修改和更新功能)
 - [5.增加颜色选择框](#练习5增加颜色选择框)
 - [6.增加Undo/Redo功能](#练习6增加undoredo功能)
+- [7.截屏](#练习7绘图区截屏)
 
 练习1：超简单的涂鸦App
 -------------------
@@ -248,6 +249,19 @@
        }
    });
      ```
+
+练习7：绘图区截屏
+---------------
+
+添加一个按钮，按钮响应函数如下：
+
+    findViewById(R.id.snapshot_btn).setOnClickListener(new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            mHelper.savePNG(mHelper.extentSnapshot(4, true), PATH + "snapshot.png");
+        }
+    });
+
 
 [vgandroid]: https://github.com/rhcad/vgandroid
 [prebuilt]: https://github.com/rhcad/vgandroid/archive/prebuilt.zip

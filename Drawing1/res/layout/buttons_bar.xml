@@ -47,6 +47,13 @@
         android:src="@drawable/colorwheel" />
 
     <ImageButton
+        android:id="@+id/snapshot_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/snapshot"
+        android:src="@drawable/snapshot" />
+
+    <ImageButton
         android:id="@+id/undo_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
